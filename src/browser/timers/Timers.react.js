@@ -1,7 +1,7 @@
-import * as usersActions from '../../common/timers/actions';
+import * as timersActions from '../../common/timers/actions';
 import Component from 'react-pure-render/component';
 import React, { PropTypes } from 'react';
-import UserItem from './UserItem.react';
+import TimerItem from './TimerItem.react';
 import loading from '../lib/loading';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { connect } from 'react-redux';
@@ -14,7 +14,7 @@ const messages = defineMessages({
   }
 });
 
-class Users extends Component {
+class Timers extends Component {
 
   static propTypes = {
     intl: intlShape.isRequired,
@@ -29,7 +29,7 @@ class Users extends Component {
       <div className="firebase-users">
         <ol>
           {users.map(user =>
-            <UserItem key={user.id} user={user} />
+            <TimerItem key={user.id} user={user} />
           )}
         </ol>
       </div>
@@ -41,9 +41,9 @@ class Users extends Component {
 // Are you scared of many higher order components? Remember, these HOC's
 // are just functions and can be composed ad-hoc later when patterns emerge :-)
 
-Users = loading(Users, ['users']);
+Timers = loading(Timers, ['users']);
 
-Users = queryFirebase(Users, props => ({
+Timers = queryFirebase(Timers, props => ({
   // Query path to listen. For one user we can use `users/${props.user.id}`.
   path: 'users',
   // Firebase imperative firebase.com/docs/web/api/query as declarative params.
@@ -54,12 +54,12 @@ Users = queryFirebase(Users, props => ({
   on: {
     // Value event always rerenders all users. For better granularity, use
     // child_added, child_changed, child_removed, child_changed events.
-    value: snapshot => props.onUsersList(snapshot.val())
+    value: snapshot => props.onTimersList(snapshot.val())
   }
 }));
 
-Users = injectIntl(Users);
+Timers = injectIntl(Timers);
 
 export default connect(state => ({
   users: state.timers.list
-}), usersActions)(Users);
+}), timersActions)(Timers);

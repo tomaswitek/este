@@ -1,7 +1,7 @@
 import Component from 'react-pure-render/component';
 import React, { PropTypes } from 'react';
 
-export default class UserItem extends Component {
+export default class TimerItem extends Component {
 
   static propTypes = {
     user: PropTypes.object.isRequired
