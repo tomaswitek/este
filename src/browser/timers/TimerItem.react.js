@@ -9,14 +9,11 @@ export default class TimerItem extends Component {
 
   render() {
     const {
-      timer: { displayName, profileImageURL }
+      timer: { project_id, task_id }
     } = this.props;
     return (
       <li>
-        {displayName}
-        <img
-          src={profileImageURL}
-        />
+        {project_id} - {task_id}
       </li>
     );
   }

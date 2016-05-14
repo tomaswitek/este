@@ -17,7 +17,7 @@ class TimersPage extends Component {
 
     return (
       <div className="timers-page">
-        <Timers limitToLast={10} />
+        <Timers/>
       </div>
     );
   }
