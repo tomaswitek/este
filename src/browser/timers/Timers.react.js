@@ -11,17 +11,19 @@ class Timers extends Component {
 
   static propTypes = {
     intl: intlShape.isRequired,
-    timers: PropTypes.object.isRequired
+    timers: PropTypes.object.isRequired,
+    startTimer: PropTypes.func.isRequired,
+    stopTimer: PropTypes.func.isRequired,
   };
 
   render() {
-    const { timers } = this.props;
+    const { timers, startTimer, stopTimer } = this.props;
 
     return (
       <div className="firebase-timers">
         <ul>
           {timers.map(timer =>
-            <TimerItem key={timer.id} timer={timer} />
+            <TimerItem key={timer.id} timer={timer} startTimer={startTimer} stopTimer={stopTimer} />
           )}
         </ul>
       </div>
