@@ -41,6 +41,10 @@ export default [
     "defaultMessage": "redux-fields"
   },
   {
+    "id": "app.links.timers",
+    "defaultMessage": "Timers"
+  },
+  {
     "id": "app.links.firebase",
     "defaultMessage": "Firebase"
   },

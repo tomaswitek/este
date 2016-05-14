@@ -219,5 +219,9 @@ export default [
   {
     "id": "todos.todos.empty",
     "defaultMessage": "Esta bastante vacío aquí..."
+  },
+  {
+    "id": "app.links.timers",
+    "defaultMessage": "Timers"
   }
 ];

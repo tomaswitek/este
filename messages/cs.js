@@ -9,6 +9,10 @@ export default [
     "defaultMessage": "Odlásit se"
   },
   {
+    "id": "app.links.timers",
+    "defaultMessage": "Stopky"
+  },
+  {
     "id": "app.links.firebase",
     "defaultMessage": "Firebase"
   },

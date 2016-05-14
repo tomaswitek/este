@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import React from 'react';
 import linksMessages from '../../common/app/linksMessages';
 import { injectIntl, intlShape } from 'react-intl';
+import Users from './Users.react';
 
 class TimersPage extends Component {
 
@@ -16,7 +17,7 @@ class TimersPage extends Component {
 
     return (
       <div className="timers-page">
-        <div>Timers</div>
+        <Users limitToLast={10} />
       </div>
     );
   }
