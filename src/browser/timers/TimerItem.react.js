@@ -4,12 +4,12 @@ import React, { PropTypes } from 'react';
 export default class TimerItem extends Component {
 
   static propTypes = {
-    user: PropTypes.object.isRequired
+    timer: PropTypes.object.isRequired
   };
 
   render() {
     const {
-      user: { displayName, profileImageURL }
+      timer: { displayName, profileImageURL }
     } = this.props;
     return (
       <li>
