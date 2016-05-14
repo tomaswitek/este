@@ -10,6 +10,7 @@ import Profile from './me/ProfilePage.react';
 import React from 'react';
 import Settings from './me/SettingsPage.react';
 import Todos from './todos/TodosPage.react';
+import Timers from './timers/TimersPage.react';
 import { IndexRoute, Route } from 'react-router';
 
 export default function createRoutes(getState) {
@@ -35,6 +36,7 @@ export default function createRoutes(getState) {
         <Route component={Settings} path="settings" />
       </Route>
       <Route component={Todos} path="todos" />
+      <Route component={Timers} path="timers" />
       <Route component={NotFound} path="*" />
     </Route>
   );

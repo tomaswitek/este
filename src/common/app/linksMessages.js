@@ -28,5 +28,9 @@ export default defineMessages({
   todos: {
     defaultMessage: 'Todos',
     id: 'app.links.todos'
+  },
+  timers: {
+    defaultMessage: 'Timers',
+    id: 'app.links.timers'
   }
 });
