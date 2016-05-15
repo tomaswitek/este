@@ -6,6 +6,7 @@ import { injectIntl, intlShape } from 'react-intl';
 import Timers from './Timers.react';
 import { connect } from 'react-redux';
 import * as timersActions from '../../common/timers/actions';
+import { Link } from 'react-router';
 
 class TimersPage extends Component {
 
@@ -30,7 +31,9 @@ class TimersPage extends Component {
     return (
       <div className="timers-page">
         <Timers/>
-        <button onClick={this.onButtonClick}> Add Timer </button>
+        <Link activeClassName="active" to="/new-timer">
+          New Timer
+        </Link>
       </div>
     );
   }

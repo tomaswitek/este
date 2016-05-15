@@ -11,6 +11,7 @@ import React from 'react';
 import Settings from './me/SettingsPage.react';
 import Todos from './todos/TodosPage.react';
 import Timers from './timers/TimersPage.react';
+import NewTimerPage from './timers/NewTimerPage.react';
 import { IndexRoute, Route } from 'react-router';
 
 export default function createRoutes(getState) {
@@ -37,6 +38,7 @@ export default function createRoutes(getState) {
       </Route>
       <Route component={Todos} path="todos" />
       <Route component={Timers} path="timers" />
+      <Route component={NewTimerPage} path="new-timer" />
       <Route component={NotFound} path="*" />
     </Route>
   );

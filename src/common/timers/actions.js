@@ -1,7 +1,9 @@
 import Timer from './timer';
 // Note prefix ON, it means the action is not dispatched by the viewer.
 export const ON_TIMERS = 'ON_TIMERS';
-export const SET_TIMER = 'SET_TIMER';
+export const START_TIMER = 'START_TIMER';
+export const STOP_TIMER = 'STOP_TIMER';
+export const NEW_TIMER = 'NEW_TIMER';
 export const DELETE_TIMER = 'DELETE_TIMER';
 
 export function onTimers(timers) {
@@ -17,7 +19,7 @@ export function startTimer(timer) {
     timer = timer.set('started_at', firebase.constructor.ServerValue.TIMESTAMP);
     firebase.child('timers').child(timer.id).set(timer.toJS());
     return {
-      type: SET_TIMER,
+      type: START_TIMER,
       payload: { timer }
     };
   };
@@ -28,21 +30,25 @@ export function stopTimer(timer) {
     timer = timer.set('started_at', null);
     firebase.child('timers').child(timer.id).set(timer.toJS());
     return {
-      type: SET_TIMER,
+      type: STOP_TIMER,
       payload: { timer }
     };
   };
 }
 
-export function addTimer(timer) {
+export function newTimer(values) {
   return ({ firebase, getUid }) => {
     const timer = new Timer({
-      project_id: 1,
-      task_id: 1,
+      project_id: values.project_id,
+      task_id: values.task_id,
       id: getUid(),
       created_at: firebase.constructor.ServerValue.TIMESTAMP
     });
     firebase.child('timers').child(timer.id).set(timer.toJS());
+    return {
+      type: NEW_TIMER,
+      payload: { timer }
+    };
   };
 }
 

@@ -11,9 +11,7 @@ class Timers extends Component {
 
   static propTypes = {
     intl: intlShape.isRequired,
-    timers: PropTypes.object.isRequired,
-    startTimer: PropTypes.func.isRequired,
-    stopTimer: PropTypes.func.isRequired,
+    timers: PropTypes.object.isRequired
   };
 
   render() {
