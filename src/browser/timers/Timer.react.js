@@ -2,7 +2,7 @@ import Component from 'react-pure-render/component';
 import React, { PropTypes } from 'react';
 import { queryFirebase } from '../../common/lib/redux-firebase';
 
-export default class TimerItem extends Component {
+export default class Timer extends Component {
 
   static propTypes = {
     timer: PropTypes.object.isRequired,
@@ -42,10 +42,9 @@ export default class TimerItem extends Component {
     return (
       <li>
         <span>{timer.label}</span>
-        <span
-          className="button"
+        <button
           onClick={buttonAction}
-        >{buttonMessage}</span>
+        >{buttonMessage}</button>
       </li>
     );
   }

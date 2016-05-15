@@ -1,7 +1,7 @@
 import * as timersActions from '../../common/timers/actions';
 import Component from 'react-pure-render/component';
 import React, { PropTypes } from 'react';
-import TimerItem from './TimerItem.react';
+import Timer from './Timer.react';
 import loading from '../lib/loading';
 import { injectIntl, intlShape } from 'react-intl';
 import { connect } from 'react-redux';
@@ -25,7 +25,7 @@ class Timers extends Component {
       <div className="firebase-timers">
         <ul>
           {timers.toList().map(timer =>
-            <TimerItem key={timer.id} timer={timer} startTimer={startTimer} stopTimer={stopTimer} />
+            <Timer key={timer.id} timer={timer} startTimer={startTimer} stopTimer={stopTimer} />
           )}
         </ul>
       </div>
