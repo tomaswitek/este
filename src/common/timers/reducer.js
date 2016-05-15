@@ -6,8 +6,7 @@ import { updateList } from '../lib/redux-firebase';
 
 const InitialState = Record({
   // Undefined is absence of evidence. Null is evidence of absence.
-  list: undefined,
-  viewer: undefined
+  list: undefined
 });
 const initialState = new InitialState;
 
@@ -15,9 +14,8 @@ const reviveList = list => list && Seq(list)
   .map(json => new Timer(json))
   .toList();
 
-const revive = ({ list, viewer }) => initialState.merge({
-  list: reviveList(list),
-  viewer: viewer ? new Timer(viewer) : null
+const revive = ({ list }) => initialState.merge({
+  list: reviveList(list)
 });
 
 export default function timersReducer(state = initialState, action) {
@@ -33,13 +31,13 @@ export default function timersReducer(state = initialState, action) {
     case actions.START_TIMER: {
       const { timer } = action.payload;
       const index = state.list.indexOf(timer);
-      return state.set('list', state.list.set(index, timer.set('started_at', true)));
+      return state.set('list', state.list.set(index, timer));
     }
 
     case actions.STOP_TIMER: {
       const { timer } = action.payload;
       const index = state.list.indexOf(timer);
-      return state.set('list', state.list.set(index, timer.set('started_at', false)));
+      return state.set('list', state.list.set(index, timer));
     }
 
   }

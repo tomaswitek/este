@@ -1,5 +1,6 @@
 import Component from 'react-pure-render/component';
 import React, { PropTypes } from 'react';
+import { queryFirebase } from '../../common/lib/redux-firebase';
 
 export default class TimerItem extends Component {
 

@@ -19,6 +19,8 @@ class Timers extends Component {
   render() {
     const { timers, startTimer, stopTimer } = this.props;
 
+    console.log(timers);
+
     return (
       <div className="firebase-timers">
         <ul>

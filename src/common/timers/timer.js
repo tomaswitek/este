@@ -14,7 +14,7 @@ export default class extends Timer {
   }
 
   get label() {
-    return [this.project_id, this.task_id].join();
+    return this.id;
   }
 
 }
