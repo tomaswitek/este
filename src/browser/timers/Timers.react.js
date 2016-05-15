@@ -19,13 +19,11 @@ class Timers extends Component {
   render() {
     const { timers, startTimer, stopTimer } = this.props;
 
-    console.log(timers);
-
     return (
       <div className="firebase-timers">
         <ul>
-          {timers.toList().map(timer =>
-            <Timer key={timer.id} timer={timer} startTimer={startTimer} stopTimer={stopTimer} />
+          {timers.toList().sortBy(item => item.created_at).map(timer =>
+            <Timer key={timer.id} timer={timer} />
           )}
         </ul>
       </div>
@@ -38,6 +36,9 @@ Timers = loading(Timers, ['timers']);
 
 Timers = queryFirebase(Timers, props => ({
   path: 'timers',
+  params: [
+    ['orderByChild', 'created_at']
+  ],
   on: {
     value: snapshot => props.onTimers(snapshot.val())
   }

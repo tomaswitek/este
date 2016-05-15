@@ -4,7 +4,8 @@ const Timer = Record({
   id: '',
   project_id: '',
   task_id: '',
-  started_at: null
+  started_at: null,
+  created_at: null
 });
 
 export default class extends Timer {
