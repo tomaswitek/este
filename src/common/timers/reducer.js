@@ -1,21 +1,19 @@
 import * as actions from './actions';
 import * as authActions from '../auth/actions';
 import Timer from './timer';
-import { Record, Seq } from 'immutable';
+import { Record, Seq, Map } from 'immutable';
 import { updateList } from '../lib/redux-firebase';
 
 const InitialState = Record({
-  // Undefined is absence of evidence. Null is evidence of absence.
-  list: undefined
+  map: Map()
 });
 const initialState = new InitialState;
 
-const reviveList = list => list && Seq(list)
-  .map(json => new Timer(json))
-  .toList();
+const timerJsonToTimer = json => json && new Timer(json);
+const timersJsonToMap = json => Seq(json).map(timerJsonToTimer).toMap();
 
-const revive = ({ list }) => initialState.merge({
-  list: reviveList(list)
+const revive = state => initialState.merge({
+  map: timersJsonToMap(state.map)
 });
 
 export default function timersReducer(state = initialState, action) {
@@ -23,21 +21,14 @@ export default function timersReducer(state = initialState, action) {
 
   switch (action.type) {
 
-    case actions.ON_TIMERS_LIST: {
-      const { list } = action.payload;
-      return state.set('list', reviveList(list));
+    case actions.ON_TIMERS: {
+      const { timers } = action.payload;
+      return state.mergeIn(['map'], timersJsonToMap(timers))
     }
 
-    case actions.START_TIMER: {
+    case actions.SET_TIMER: {
       const { timer } = action.payload;
-      const index = state.list.indexOf(timer);
-      return state.set('list', state.list.set(index, timer));
-    }
-
-    case actions.STOP_TIMER: {
-      const { timer } = action.payload;
-      const index = state.list.indexOf(timer);
-      return state.set('list', state.list.set(index, timer));
+      return state.setIn(['map', timer.id], timer);
     }
 
   }

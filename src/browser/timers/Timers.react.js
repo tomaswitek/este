@@ -24,7 +24,7 @@ class Timers extends Component {
     return (
       <div className="firebase-timers">
         <ul>
-          {timers.map(timer =>
+          {timers.toList().map(timer =>
             <TimerItem key={timer.id} timer={timer} startTimer={startTimer} stopTimer={stopTimer} />
           )}
         </ul>
@@ -39,12 +39,12 @@ Timers = loading(Timers, ['timers']);
 Timers = queryFirebase(Timers, props => ({
   path: 'timers',
   on: {
-    value: snapshot => props.onTimersList(snapshot.val())
+    value: snapshot => props.onTimers(snapshot.val())
   }
 }));
 
 Timers = injectIntl(Timers);
 
 export default connect(state => ({
-  timers: state.timers.list
+  timers: state.timers.map
 }), timersActions)(Timers);
