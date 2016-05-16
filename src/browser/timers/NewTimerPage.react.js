@@ -52,9 +52,10 @@ class NewTimerPage extends Component {
   }
 
   componentDidMount() {
-    const { fetchProjects, fetchTasks } = this.props;
+    const { fetchProjects, fetchTasks, filterProjectTasks } = this.props;
     fetchProjects();
     fetchTasks();
+    filterProjectTasks();
   }
 
   render() {
