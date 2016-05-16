@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { fields } from '../../common/lib/redux-fields';
 import { replace } from 'react-router-redux';
 import * as timersActions from '../../common/timers/actions';
+import * as projectsActions from '../../common/projects/actions';
 
 class NewTimerPage extends Component {
 
@@ -29,6 +30,11 @@ class NewTimerPage extends Component {
     newTimer(values);
     fields.$reset();
     replace('timers');
+  }
+
+  componentDidMount() {
+    const { fetchProjects } = this.props;
+    fetchProjects();
   }
 
   render() {
@@ -69,4 +75,4 @@ NewTimerPage = fields(NewTimerPage, {
 
 NewTimerPage = injectIntl(NewTimerPage);
 
-export default connect(null, { ...timersActions, replace })(NewTimerPage);
+export default connect(null, { ...projectsActions, ...timersActions, replace })(NewTimerPage);

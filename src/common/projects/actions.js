@@ -4,7 +4,6 @@ export const FETCH_PROJECTS_START = 'FETCH_PROJECTS_START';
 export const FETCH_PROJECTS_SUCCESS = 'FETCH_PROJECTS_SUCCESS';
 
 export function fetchProjects() {
-  console.log('aoj');
   return ({fetch}) => ({
     type: FETCH_PROJECTS,
     payload: {
