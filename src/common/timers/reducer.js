@@ -28,7 +28,7 @@ export default function timersReducer(state = initialState, action) {
 
     case actions.START_TIMER:
     case actions.STOP_TIMER:
-    case actions.ADD_TIMER: {
+    case actions.NEW_TIMER: {
       const { timer } = action.payload;
       return state.setIn(['map', timer.id], timer);
     }
