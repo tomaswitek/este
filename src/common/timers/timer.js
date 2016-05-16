@@ -5,17 +5,14 @@ const Timer = Record({
   project_id: '',
   task_id: '',
   started_at: null,
-  created_at: null
+  created_at: null,
+  label: ''
 });
 
 export default class extends Timer {
 
   get isRunning() {
     return !!this.started_at;
-  }
-
-  get label() {
-    return this.id;
   }
 
 }

@@ -37,12 +37,15 @@ export function stopTimer(timer) {
 }
 
 export function newTimer(values) {
-  return ({ firebase, getUid }) => {
+  return ({ firebase, getUid, getState }) => {
+    const project = getState().projects.list.find(project => project.id === values.project_id.value);
+    const task = getState().tasks.list.find(task => task.id === values.task_id.value);
     const timer = new Timer({
-      project_id: values.project_id,
-      task_id: values.task_id,
+      project_id: values.project_id.value,
+      task_id: values.task_id.value,
       id: getUid(),
-      created_at: firebase.constructor.ServerValue.TIMESTAMP
+      created_at: firebase.constructor.ServerValue.TIMESTAMP,
+      label: [project.shortname, task.label].join(' - ')
     });
     firebase.child('timers').child(timer.id).set(timer.toJS());
     return {
