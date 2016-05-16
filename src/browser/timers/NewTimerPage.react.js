@@ -6,8 +6,10 @@ import { injectIntl, intlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import { fields } from '../../common/lib/redux-fields';
 import { replace } from 'react-router-redux';
+import Select from 'react-select';
 import * as timersActions from '../../common/timers/actions';
 import * as projectsActions from '../../common/projects/actions';
+import 'react-select/scss/default.scss';
 
 class NewTimerPage extends Component {
 
@@ -38,18 +40,18 @@ class NewTimerPage extends Component {
   }
 
   render() {
-    const { intl, fields } = this.props;
+    const { intl, fields, projects } = this.props;
     const title = intl.formatMessage(linksMessages.timers);
 
     return (
       <div className="new-timer-page">
         <form onSubmit={this.onFormSubmit}>
           <div>
-            <input
+            <Select
               {...fields.project_id}
-              autoFocus
-              placeholder="Project"
+              options={projects.toJS()}
             />
+
           </div>
           <div>
             <input
@@ -75,4 +77,6 @@ NewTimerPage = fields(NewTimerPage, {
 
 NewTimerPage = injectIntl(NewTimerPage);
 
-export default connect(null, { ...projectsActions, ...timersActions, replace })(NewTimerPage);
+export default connect(state => ({
+  projects: state.projects.list
+}), { ...projectsActions, ...timersActions, replace })(NewTimerPage);
