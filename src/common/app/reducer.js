@@ -10,6 +10,7 @@ import todos from '../todos/reducer';
 import ui from '../ui/reducer';
 import users from '../users/reducer';
 import timers from '../timers/reducer';
+import projects from '../projects/reducer';
 
 export default combineReducers({
   auth,
@@ -21,5 +22,6 @@ export default combineReducers({
   todos,
   ui,
   users,
-  timers
+  timers,
+  projects
 });
