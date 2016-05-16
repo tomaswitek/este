@@ -11,7 +11,7 @@ const revive = ({list}) => initialState.merge({
   list: List(list).map(project => new Project(project))
 });
 
-export default function projectReducer(state = initialState, action) {
+export default function projectsReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return revive(state);
 
   switch (action.type) {

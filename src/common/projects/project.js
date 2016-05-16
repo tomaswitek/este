@@ -6,8 +6,6 @@ const Project = Record({
   description: ''
 });
 
-export default Project;
-
 export default class extends Project {
 
   get value() {

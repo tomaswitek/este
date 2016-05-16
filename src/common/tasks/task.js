@@ -6,4 +6,21 @@ const Task = Record({
   name: ''
 });
 
-export default Task;
+export default class extends Task {
+
+  get value() {
+    return this.id;
+  }
+
+  get label() {
+    return this.name;
+  }
+
+  toJS() {
+    return {
+      label: this.label,
+      value: this.value
+    };
+  }
+
+}

@@ -9,6 +9,7 @@ import { replace } from 'react-router-redux';
 import Select from 'react-select';
 import * as timersActions from '../../common/timers/actions';
 import * as projectsActions from '../../common/projects/actions';
+import * as tasksActions from '../../common/tasks/actions';
 import 'react-select/scss/default.scss';
 
 class NewTimerPage extends Component {
@@ -17,12 +18,17 @@ class NewTimerPage extends Component {
     intl: intlShape.isRequired,
     fields: PropTypes.object.isRequired,
     newTimer: PropTypes.func.isRequired,
-    replace: PropTypes.func.isRequired
+    replace: PropTypes.func.isRequired,
+    fetchProjects: PropTypes.func.isRequired,
+    fetchTasks: PropTypes.func.isRequired,
+    filterProjectTasks: PropTypes.func.isRequired
   };
 
   constructor(props) {
     super(props);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onProjectChange = this.onProjectChange.bind(this);
+    this.onTaskChange = this.onTaskChange.bind(this);
   }
 
   onFormSubmit(e) {
@@ -34,13 +40,25 @@ class NewTimerPage extends Component {
     replace('timers');
   }
 
+  onProjectChange(project) {
+    const { fields, tasks, filterProjectTasks } = this.props;
+    fields.project_id.setValue(project);
+    filterProjectTasks(fields.project_id.value.value);
+  }
+
+  onTaskChange(task){
+    const { fields } = this.props;
+    fields.task_id.setValue(task);
+  }
+
   componentDidMount() {
-    const { fetchProjects } = this.props;
+    const { fetchProjects, fetchTasks } = this.props;
     fetchProjects();
+    fetchTasks();
   }
 
   render() {
-    const { intl, fields, projects } = this.props;
+    const { intl, fields, projects, projectTasks } = this.props;
     const title = intl.formatMessage(linksMessages.timers);
 
     return (
@@ -50,14 +68,17 @@ class NewTimerPage extends Component {
             <Select
               {...fields.project_id}
               options={projects.toJS()}
+              onChange={this.onProjectChange}
             />
-
           </div>
           <div>
-            <input
-              {...fields.task_id}
-              placeholder="Task"
-            />
+            {!projectTasks.isEmpty() &&
+              <Select
+                {...fields.task_id}
+                options={projectTasks.toJS()}
+                onChange={this.onTaskChange}
+              />
+            }
           </div>
           <div>
             <br/>
@@ -78,5 +99,7 @@ NewTimerPage = fields(NewTimerPage, {
 NewTimerPage = injectIntl(NewTimerPage);
 
 export default connect(state => ({
-  projects: state.projects.list
-}), { ...projectsActions, ...timersActions, replace })(NewTimerPage);
+  projects: state.projects.list,
+  tasks: state.tasks.list,
+  projectTasks: state.tasks.projectTasks
+}), { ...projectsActions, ...timersActions, ...tasksActions, replace })(NewTimerPage);

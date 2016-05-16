@@ -11,6 +11,7 @@ import ui from '../ui/reducer';
 import users from '../users/reducer';
 import timers from '../timers/reducer';
 import projects from '../projects/reducer';
+import tasks from '../tasks/reducer';
 
 export default combineReducers({
   auth,
@@ -23,5 +24,6 @@ export default combineReducers({
   ui,
   users,
   timers,
-  projects
+  projects,
+  tasks
 });
