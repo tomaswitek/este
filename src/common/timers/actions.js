@@ -13,24 +13,29 @@ export function onTimers(timers) {
   };
 }
 
-export function startTimer(timer) {
-  // const map = timer.set('started_at', true);
-  return ({ firebase }) => {
-    timer = timer.set('started_at', firebase.constructor.ServerValue.TIMESTAMP);
-    firebase.child('timers').child(timer.id).set(timer.toJS());
-    return {
-      type: START_TIMER,
-      payload: { timer }
-    };
-  };
-}
-
 export function stopTimer(timer) {
   return ({ firebase }) => {
     timer = timer.set('started_at', null);
     firebase.child('timers').child(timer.id).set(timer.toJS());
     return {
       type: STOP_TIMER,
+      payload: { timer }
+    };
+  };
+}
+
+export function startTimer(timer) {
+  // const map = timer.set('started_at', true);
+  return ({ firebase, dispatch, getState }) => {
+    // stop first the running timer
+    const runningTimer = getState().timers.map.find(timer => timer.isRunning);
+    if (runningTimer) {
+      dispatch(stopTimer(runningTimer));
+    }
+    timer = timer.set('started_at', firebase.constructor.ServerValue.TIMESTAMP);
+    firebase.child('timers').child(timer.id).set(timer.toJS());
+    return {
+      type: START_TIMER,
       payload: { timer }
     };
   };
