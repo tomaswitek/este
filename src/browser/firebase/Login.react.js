@@ -132,7 +132,7 @@ class Login extends Component {
       <div className="firebase-login">
         <div className="social-auth-providers">
           <button
-            data-provider="facebook"
+            data-provider="google"
             disabled={formDisabled}
             onClick={this.onSocialLoginClick}
           >
