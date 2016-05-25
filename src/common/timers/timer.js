@@ -6,7 +6,8 @@ const Timer = Record({
   task_id: '',
   started_at: null,
   created_at: null,
-  label: ''
+  label: '',
+  creator_id: null
 });
 
 export default class extends Timer {

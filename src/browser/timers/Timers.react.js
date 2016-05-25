@@ -32,18 +32,20 @@ class Timers extends Component {
 
 Timers = loading(Timers, ['timers']);
 
-Timers = queryFirebase(Timers, props => ({
+Timers = queryFirebase(Timers, ({onTimers, viewer}) => ({
   path: 'timers',
   params: [
-    ['orderByChild', 'created_at']
+    ['orderByChild', 'creator_id'],
+    ['equalTo', viewer.id]
   ],
   on: {
-    value: snapshot => props.onTimers(snapshot.val())
+    value: snapshot => onTimers(snapshot.val())
   }
 }));
 
 Timers = injectIntl(Timers);
 
 export default connect(state => ({
-  timers: state.timers.map
+  timers: state.timers.map,
+  viewer: state.users.viewer
 }), timersActions)(Timers);

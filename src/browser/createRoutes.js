@@ -37,7 +37,7 @@ export default function createRoutes(getState) {
         <Route component={Settings} path="settings" />
       </Route>
       <Route component={Todos} path="todos" />
-      <Route component={Timers} path="timers" />
+      <Route component={Timers} path="timers" onEnter={requireAuth} />
       <Route component={NewTimerPage} path="new-timer" />
       <Route component={NotFound} path="*" />
     </Route>
