@@ -1,6 +1,6 @@
 import Component from 'react-pure-render/component';
 import Helmet from 'react-helmet';
-import Login from './Login.react';
+import FirebaseLogin from './FirebaseLogin.react';
 import React from 'react';
 import linksMessages from '../../common/app/linksMessages';
 import { injectIntl, intlShape } from 'react-intl';
@@ -19,7 +19,7 @@ class AuthPage extends Component {
     return (
       <div className="auth-page">
         <Helmet title={title} />
-        <Login location={location} />
+        <FirebaseLogin location={location} />
       </div>
     );
   }
