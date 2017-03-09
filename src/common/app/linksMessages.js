@@ -46,6 +46,10 @@ const LinkMessages = defineMessages({
     defaultMessage: 'Todos',
     id: 'app.links.todos',
   },
+  loans: {
+    defaultMessage: 'Loan calculator',
+    id: 'app.links.loans',
+  },
 });
 
 export default LinkMessages;
