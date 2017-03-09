@@ -1,13 +1,21 @@
 // @flow
 import React from 'react';
-import { Box } from '../../common/components';
+import { Box, PageHeader } from '../../common/components';
 import { Title } from '../components';
 import linksMessages from '../../common/app/linksMessages';
+import { injectIntl } from 'react-intl';
+import LoanCalculator from './LoanCalculator';
 
-const LoansPage = () => (
+type LoansPageProps = { intl: $IntlShape };
+
+const LoansPage = ({ intl }: LoansPageProps) => (
   <Box>
     <Title message={linksMessages.loans} />
+    <PageHeader
+      heading={intl.formatMessage(linksMessages.loans)}
+    />
+    <LoanCalculator />
   </Box>
 );
 
-export default LoansPage;
+export default injectIntl(LoansPage);
