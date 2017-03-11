@@ -80,6 +80,19 @@ export type UsersState = {
   viewer: ?User,
 };
 
+export type LoanInterval = {
+  min: number,
+  max: number,
+  step: number,
+  defaultValue: number,
+  value?: number,
+}
+
+export type LoansState = {
+  ammountInterval: ?LoanInterval,
+  termInterval: ?LoanInterval,
+};
+
 // State
 
 export type State = {
@@ -92,6 +105,7 @@ export type State = {
   intl: IntlState,
   todos: TodosState,
   users: UsersState,
+  loans: LoansState,
 };
 
 // Actions
@@ -120,5 +134,7 @@ export type Action =
   | { type: 'SIGN_UP_DONE', payload: { user: ?User } }
   | { type: 'SIGN_UP_FAIL', payload: { error: Error } }
   | { type: 'TOGGLE_TODO_COMPLETED', payload: { todo: Todo } }
+  | { type: 'CHANGE_LOAN_AMMOUNT_VALUE', payload: { value: number } }
+  | { type: 'CHANGE_LOAN_TERM_VALUE', payload: { value: number } }
   | { type: 'TOGGLE_BASELINE' }
   | { type: 'QUERY_FIREBASE', payload: { ref: string } };

@@ -7,13 +7,13 @@ import 'rc-slider/assets/index.css';
 type LoanSliderProps = {
   label: string,
   marginRight?: number,
-  flexGrow?: number,
-  maxLength?: number,
+  flexGrow: ?number,
+  maxLength: ?number,
   min: number,
   max: number,
   step: number,
   defaultValue: number,
-  value: number,
+  value?: number,
 };
 
 const LoanSlider = ({
@@ -25,9 +25,13 @@ const LoanSlider = ({
   max,
   step,
   defaultValue,
+  onChange,
+  value,
 }: LoanSliderProps) => {
-  const onChange = (value) => {
-    console.log(value);
+
+  const onFieldChange = (e) => {
+    const value = e.target.value || 0;
+    onChange(Number.parseInt(value, 0));
   };
 
   return (
@@ -39,7 +43,8 @@ const LoanSlider = ({
         label={label}
         maxLength={maxLength}
         defaultValue={defaultValue}
-        onChange={e => onChange(e.target.value)}
+        value={value}
+        onChange={onFieldChange}
       />
       <Slider
         min={min}
@@ -47,6 +52,7 @@ const LoanSlider = ({
         step={step}
         defaultValue={defaultValue}
         onChange={onChange}
+        value={value}
       />
     </Box>
   );

@@ -1,31 +1,50 @@
 // @flow
+import type { State, LoanInterval } from '../../common/types';
 import React from 'react';
 import { Box } from '../../common/components';
 import { injectIntl } from 'react-intl';
 import loansMessages from '../../common/loans/loansMessages';
 import LoanSlider from './LoanSlider';
+import { connect } from 'react-redux';
+import {
+  changeLoanAmmount,
+  changeLoanTerm,
+} from '../../common/loans/actions';
 
-type LoanCalculatorProps = { intl: $IntlShape };
+type LoanCalculatorProps = {
+  intl: $IntlShape,
+  ammountInterval: LoanInterval,
+  termInterval: LoanInterval,
+};
 
-const LoanCalculator = ({ intl }: LoanCalculatorProps) => (
-  <Box flexDirection="row" justifyContent="space-between">
+const LoanCalculator = ({
+  intl,
+  ammountInterval,
+  termInterval,
+  changeLoanAmmount,
+  changeLoanTerm,
+}: LoanCalculatorProps) => (
+  <Box flexDirection="row">
     <LoanSlider
-      min={1000}
-      max={80000}
-      step={1000}
       label={intl.formatMessage(loansMessages.loanAmmount)}
       marginRight={1}
-      defaultValue={40000}
+      {...ammountInterval}
+      onChange={changeLoanAmmount}
     />
     <LoanSlider
-      min={6}
-      max={60}
-      step={6}
       label={intl.formatMessage(loansMessages.loanTerm)}
-      marginRight={1}
-      defaultValue={24}
+      {...termInterval}
+      onChange={changeLoanTerm}
     />
   </Box>
 );
 
-export default injectIntl(LoanCalculator);
+export default connect(
+  (state: State) => ({
+    ammountInterval: state.loans.ammountInterval,
+    termInterval: state.loans.termInterval,
+  }), {
+    changeLoanAmmount,
+    changeLoanTerm,
+  },
+)(injectIntl(LoanCalculator));
